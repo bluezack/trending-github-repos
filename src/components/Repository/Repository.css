@@ -12,8 +12,8 @@
     max-width: 100px;
     margin-right: 20px;
     border-radius: 2px;
-    border: 2px solid white;
-    box-shadow: 0 0 0px 1px rgb(0, 0, 0, 0.1);
+    border: 1px solid rgb(240, 240, 240);
+    padding: 2px;
     box-sizing: border-box;
 }
 
@@ -38,16 +38,18 @@
     font-weight: 100;
 }
 
+
 .info {
-    justify-self: flex-end;
-    margin: 5px 0;
+    display: flex;
+    flex-wrap: wrap;
 }
+
 
 .info > span {
     padding: 5px 10px;
     background: rgb(245, 245, 245);
     border-radius: 2px;
     font-size: 12px;
-    margin-right: 10px;
+    margin: 10px 10px 0 0;
     color: grey;
 }
