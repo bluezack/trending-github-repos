@@ -1,0 +1,17 @@
+.Repositories > h2 {
+    text-align: center;
+    margin: 50px 0;
+}
+.Repositories > ul {
+    margin: 0;
+    padding: 0;
+}
+
+.Repositories > ul {
+    margin: 0;
+    padding: 0;
+}
+
+.Repositories > ul > li {
+    list-style: none;
+}
