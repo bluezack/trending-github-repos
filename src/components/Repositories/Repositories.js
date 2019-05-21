@@ -11,7 +11,7 @@ export class Repositories extends Component {
     state = {
         repositories: [],
         page: 1,
-        totalPages: 100,
+        totalPages: 1,
         loading: false,
         errors: [],
     }
@@ -42,7 +42,18 @@ export class Repositories extends Component {
         }
     }
 
-    //load data from github api
+    //parse link header to extract the last page number (total pages)
+    GetTotalPages(data) {
+        let parsed_data = {}
+        let arrData = data.split(",")
+
+        for (let d of arrData) {
+            let linkInfo = /<([^>]+)>;\s+rel="([^"]+)"/ig.exec(d)
+            parsed_data[linkInfo[2]] = linkInfo[1]
+        }
+        let arr = parsed_data.last.split('&');
+        return arr[arr.length - 1].split('=')[1];
+    }
 
 
     loadData() {
@@ -53,6 +64,7 @@ export class Repositories extends Component {
             .then(res => {
 
                 //Extract Nedded Informations and Add it to State
+                const totalPages = this.GetTotalPages(res.headers.link);
 
                 const newRepositories = res.data.items.map(r => ({
                     id: r.id,
@@ -69,6 +81,7 @@ export class Repositories extends Component {
                     repositories: [...prevState.repositories, ...newRepositories],
                     page: prevState.page + 1,
                     errors: [],
+                    totalPages: totalPages,
                     loading: false //stop animation, allow user to scroll and fetch more data
                 }))
             })
@@ -87,8 +100,10 @@ export class Repositories extends Component {
                     ))}
                 </TransitionGroup>
 
+                {/* show loading animation while fetching data*/}
                 {this.state.loading && <Loading />}
 
+                {/* show erros */}
                 {this.state.errors.map((err, i) => (<p className="error" id={i} key={i}>{err}</p>))}
 
             </div >
