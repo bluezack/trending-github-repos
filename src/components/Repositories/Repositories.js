@@ -26,12 +26,7 @@ export class Repositories extends Component {
         window.addEventListener('scroll', this.handleScroll);
     }
 
-    componentWillUnmount() {
-        window.removeEventListener('scroll', this.handleScroll);
-    }
-
-
-    //Handle user scrolling event
+    //Handle scrolling event
 
     handleScroll = () => {
         const { loading, totalPages, page } = this.state
@@ -46,6 +41,8 @@ export class Repositories extends Component {
             this.loadData();
         }
     }
+
+    //load data from github api
 
 
     loadData() {
@@ -72,7 +69,7 @@ export class Repositories extends Component {
                     repositories: [...prevState.repositories, ...newRepositories],
                     page: prevState.page + 1,
                     errors: [],
-                    loading: false
+                    loading: false //stop animation, allow user to scroll and fetch more data
                 }))
             })
             .catch(err => this.setState(prevState => ({ errors: [...prevState.errors, err.message] })))
@@ -92,7 +89,7 @@ export class Repositories extends Component {
 
                 {this.state.loading && <Loading />}
 
-                {this.state.errors.map((err, i) => (<p className="error" key={i}>{err}</p>))}
+                {this.state.errors.map((err, i) => (<p className="error" id={i} key={i}>{err}</p>))}
 
             </div >
         )

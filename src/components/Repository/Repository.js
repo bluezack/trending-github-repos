@@ -15,9 +15,20 @@ export default function Repository(props) {
                 <h3><A href={url} >{name}</A></h3>
                 <p>{desc}</p>
                 <div className="info">
-                    <span>Stars: {stars}</span>
-                    <span>Issues: {issues}</span>
-                    <span>Submitted <strong>{moment(date).fromNow()}</strong> By <A href={owner.url}>{owner.name}</A></span>
+                    <div>
+                        <i className="la la-star-o"></i>
+                        <span>{stars}</span>
+                    </div>
+                    <div>
+                        <i className="la la-exclamation-circle"></i>
+                        <span>{issues}</span>
+                    </div>
+                    <div>
+                        <span>Submitted</span>
+                        <strong>{moment(date).fromNow()}</strong>
+                        <span>By </span>
+                        <A href={owner.url}>{owner.name}</A>
+                    </div>
                 </div>
             </div>
         </div>
