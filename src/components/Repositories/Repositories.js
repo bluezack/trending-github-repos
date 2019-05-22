@@ -43,16 +43,24 @@ export class Repositories extends Component {
     }
 
     //parse link header to extract the last page number (total pages)
-    GetTotalPages(data) {
+    GetTotalPages(Headerdata) {
         let parsed_data = {}
-        let arrData = data.split(",")
+        let arrData = Headerdata.split(",")
 
         for (let d of arrData) {
             let linkInfo = /<([^>]+)>;\s+rel="([^"]+)"/ig.exec(d)
             parsed_data[linkInfo[2]] = linkInfo[1]
         }
-        let arr = parsed_data.last.split('&');
-        return arr[arr.length - 1].split('=')[1];
+        let link = parsed_data.last;
+        let paramsString = link.split('?')[1];
+        let paramsArray = paramsString.split('&')
+        let params = {}
+        for (let e of paramsArray) {
+            let param = e.split('=');
+            params[param[0]] = param[1];
+        }
+
+        return params.page
     }
 
 
